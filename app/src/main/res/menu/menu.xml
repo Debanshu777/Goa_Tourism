@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/camera"
+        android:enabled="true"
+        android:icon="@drawable/camera"
+        android:title="Camera"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/search"
+        android:enabled="true"
+        android:title="Search"
+        app:showAsAction="always" />
+
+
+    <item
+
+        android:id="@+id/profile"
+        android:enabled="true"
+        android:icon="@drawable/person"
+        android:title="Profile"
+        app:showAsAction="withText" />
+</menu>

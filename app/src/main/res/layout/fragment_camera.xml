@@ -3,25 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
 
-    <TextureView
+    <com.camerakit.CameraKitView
+        android:id="@+id/camera"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/textureview"
-        />
-
-    <ImageButton
-        android:id="@+id/capture"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:backgroundTint="@android:color/white"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="46dp"
-        android:background="@null"
-        android:src="@drawable/camera" />
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:keepScreenOn="true"
+        app:camera_facing="back"
+        app:camera_flash="auto"
+        app:camera_focus="continuous"
+        app:camera_permissions="camera" />
 
 </FrameLayout>

@@ -26,9 +26,9 @@
                 android:id="@+id/relative1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/background"
                 android:elevation="10dp">
                 <!--        <ImageView-->
@@ -72,15 +72,22 @@
                 android:layout_marginRight="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/gps" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:id="@+id/expand"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@id/relative1"
+                android:layout_height="match_parent"/>
         </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:background="#fff"
+            android:background="@drawable/design"
             app:behavior_hideable="true"
-            app:behavior_peekHeight="100dp"
+            app:behavior_peekHeight="10dp"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
             <TextView

@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,8 +49,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private ImageView mGps;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private BottomSheetBehavior mBottomSheetBehavior;
-
-
+    private FloatingActionButton buttonExpand;
 
 
 
@@ -68,8 +68,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View view= inflater.inflate(R.layout.fragment_map, container, false);
         getLocationPermission();
         mSearchText=view.findViewById(R.id.input_search);
+        buttonExpand=view.findViewById(R.id.expand);
         View bottomSheet = view.findViewById(R.id.bottom_sheet);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        buttonExpand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {

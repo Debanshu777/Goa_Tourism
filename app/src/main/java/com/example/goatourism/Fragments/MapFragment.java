@@ -2,7 +2,6 @@ package com.example.goatourism.Fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -30,7 +29,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -49,7 +47,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private ImageView mGps;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private BottomSheetBehavior mBottomSheetBehavior;
-    private FloatingActionButton buttonExpand;
+    private FloatingActionButton buttonExpandmap;
 
 
 
@@ -68,10 +66,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View view= inflater.inflate(R.layout.fragment_map, container, false);
         getLocationPermission();
         mSearchText=view.findViewById(R.id.input_search);
-        buttonExpand=view.findViewById(R.id.expand);
+        buttonExpandmap=view.findViewById(R.id.expand);
         View bottomSheet = view.findViewById(R.id.bottom_sheet);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        buttonExpand.setOnClickListener(new View.OnClickListener() {
+        buttonExpandmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -238,18 +236,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         init();
-
-        try {
-            boolean success = googleMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(
-                            getActivity(), R.raw.mystyle2));
-
-            if (!success) {
-                Log.e("MapActivity", "Style parsing failed.");
-            }
-        } catch (Resources.NotFoundException e) {
-            Log.e("MapActivity", "Can't find style. Error: ", e);
-        }
     }
     private  void hideSoftKeyboard(){
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);

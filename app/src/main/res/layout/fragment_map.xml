@@ -1,68 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-     >
-    <fragment
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        tools:context=".MapFragment"
-        />
-    <RelativeLayout
-        android:id="@+id/relative1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:elevation="10dp"
-        android:background="@drawable/background">
-<!--        <ImageView-->
-<!--            android:src="@drawable/search"-->
-<!--            android:layout_width="15dp"-->
-<!--            android:layout_height="15dp"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_marginLeft="10dp"-->
-<!--            android:id="@+id/magnify"/>-->
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:textSize="15sp"
-            android:elevation="5dp"
-            android:iconifiedByDefault="false"
-            android:id="@+id/input_search"
-            android:background="@null"
-            android:queryHint="Search Location"
-            android:imeOptions="actionSearch"/>
-<!--        <EditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_toRightOf="@id/magnify"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:textSize="15sp"-->
-<!--            android:id="@+id/input_search"-->
-<!--            android:background="@null"-->
-<!--            android:hint="Search Location"-->
-<!--            android:imeOptions="actionSearch"/>-->
+        android:layout_height="match_parent"
+        tools:context=".MapFragment" />
 
-    </RelativeLayout>
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/relative1"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/gps"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:scaleType="centerCrop"
-        android:id="@+id/ic_gps"
-        />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/relative1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/background"
+                android:elevation="10dp">
+                <!--        <ImageView-->
+                <!--            android:src="@drawable/search"-->
+                <!--            android:layout_width="15dp"-->
+                <!--            android:layout_height="15dp"-->
+                <!--            android:layout_centerVertical="true"-->
+                <!--            android:layout_marginLeft="10dp"-->
+                <!--            android:id="@+id/magnify"/>-->
+                <SearchView
+                    android:id="@+id/input_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:elevation="5dp"
+                    android:iconifiedByDefault="false"
+                    android:imeOptions="actionSearch"
+                    android:queryHint="Search Location"
+                    android:textSize="15sp" />
+                <!--        <AutoCompleteTextView-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="match_parent"-->
+                <!--            android:layout_toRightOf="@id/magnify"-->
+                <!--            android:layout_centerVertical="true"-->
+                <!--            android:textSize="15sp"-->
+                <!--            android:id="@+id/input_search"-->
+                <!--            android:background="@null"-->
+                <!--            android:hint="Search Location"-->
+                <!--            android:imeOptions="actionSearch"/>-->
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/ic_gps"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/relative1"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gps" />
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="#fff"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="100dp"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:text="This is a Bottom Sheet\n\nLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer"
+                android:textSize="16sp" />
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>

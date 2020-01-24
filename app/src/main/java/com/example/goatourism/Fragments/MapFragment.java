@@ -21,9 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.goatourism.PlaceAutocompleteAdapter;
 import com.example.goatourism.R;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,6 +33,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,8 +47,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private SearchView mSearchText;
     private ImageView mGps;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
-    private GoogleApiClient mGoogleApiClient;
+    private BottomSheetBehavior mBottomSheetBehavior;
+
 
 
 
@@ -69,6 +68,35 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View view= inflater.inflate(R.layout.fragment_map, container, false);
         getLocationPermission();
         mSearchText=view.findViewById(R.id.input_search);
+        View bottomSheet = view.findViewById(R.id.bottom_sheet);
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+
+                        break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+
+                        break;
+                    case BottomSheetBehavior.STATE_HIDDEN:
+
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
         mSearchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -84,7 +112,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     }
                     Address address = list.get(0);
                     moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM,
-                    address.getAddressLine(0));
+                            address.getAddressLine(0));
                 }
                 return false;
             }
@@ -160,7 +188,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private  void getLocationPermission(){
         String[] permissions={Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
         if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),FINE_LOCATION)
-        == PackageManager.PERMISSION_GRANTED){
+                == PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),COURSE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED){
                 mLoactionPermissionGranted=true;
@@ -205,16 +233,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         init();
 
         try {
-                        boolean success = googleMap.setMapStyle(
-                                MapStyleOptions.loadRawResourceStyle(
-                                        getActivity(), R.raw.mystyle2));
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            getActivity(), R.raw.mystyle2));
 
-                        if (!success) {
-                            Log.e("MapActivity", "Style parsing failed.");
-                        }
-                    } catch (Resources.NotFoundException e) {
-                        Log.e("MapActivity", "Can't find style. Error: ", e);
-                    }
+            if (!success) {
+                Log.e("MapActivity", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("MapActivity", "Can't find style. Error: ", e);
+        }
     }
     private  void hideSoftKeyboard(){
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);

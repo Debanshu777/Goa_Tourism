@@ -11,20 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             >
 
-        <com.camerakit.CameraKitView
-            android:id="@+id/camera"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:keepScreenOn="true"
-            app:camera_facing="back"
-            app:camera_flash="auto"
-            app:camera_focus="continuous"
-            app:camera_permissions="camera" />
+            <com.camerakit.CameraKitView
+                android:id="@+id/camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:keepScreenOn="true"
+                app:camera_facing="back"
+                app:camera_flash="auto"
+                app:camera_focus="continuous"
+                app:camera_permissions="camera" />
             <ImageView
                 android:id="@+id/expandDet"
                 android:layout_width="100dp"

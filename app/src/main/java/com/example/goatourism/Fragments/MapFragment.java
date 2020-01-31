@@ -1,6 +1,7 @@
 package com.example.goatourism.Fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -25,6 +26,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -38,6 +40,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.view.View.VISIBLE;
+
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -47,7 +51,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private ImageView mGps;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private BottomSheetBehavior mBottomSheetBehavior;
-    private FloatingActionButton buttonExpandmap;
+    private FloatingActionButton buttonExpandmap,buttonCollapsemap;
 
 
 
@@ -67,8 +71,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         getLocationPermission();
         mSearchText=view.findViewById(R.id.input_search);
         buttonExpandmap=view.findViewById(R.id.expand);
+        buttonCollapsemap=view.findViewById(R.id.fab3);
         View bottomSheet = view.findViewById(R.id.bottom_sheet);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        buttonCollapsemap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
         buttonExpandmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,17 +87,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
                     case BottomSheetBehavior.STATE_COLLAPSED:
-
+                        buttonExpandmap.setVisibility(VISIBLE);
                         break;
                     case BottomSheetBehavior.STATE_DRAGGING:
 
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED:
-
+                        buttonCollapsemap.setVisibility(VISIBLE);
+                        buttonExpandmap.setVisibility(View.GONE);
                         break;
                     case BottomSheetBehavior.STATE_HIDDEN:
 
@@ -131,6 +144,41 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         getLocationPermission();
         return view;
     }
+    private void landmarks() {
+        Geocoder geocoder=new Geocoder(getActivity());
+        List<Address> list=new ArrayList<>();
+        List<Address> list1=new ArrayList<>();
+        List<Address> list2=new ArrayList<>();
+        List<Address> list3=new ArrayList<>();
+        try {
+            list = geocoder.getFromLocationName("Nandankanan Zoological Park", 1);
+            list1 = geocoder.getFromLocationName("Lingaraj Temple", 1);
+            list2 = geocoder.getFromLocationName("Udayagiri and Khandagiri Caves", 1);
+            list3 = geocoder.getFromLocationName("Jayadev Vatika,Bhubaneswar", 1);
+        }catch (IOException e){
+            Log.e(TAG, "geoLocate: IOException: " + e.getMessage() );
+        }
+
+        for(int i=0;i<list.size();i++) {
+            Address address = list.get(i);
+            Address address1 = list1.get(i);
+            Address address2 = list2.get(i);
+            Address address3 = list3.get(i);
+            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            LatLng latLng1 = new LatLng(address1.getLatitude(), address1.getLongitude());
+            LatLng latLng2 = new LatLng(address2.getLatitude(), address2.getLongitude());
+            LatLng latLng3 = new LatLng(address3.getLatitude(), address3.getLongitude());
+            addmarker(latLng,address.getLocality());
+            addmarker(latLng1,address1.getLocality());
+            addmarker(latLng2,address2.getFeatureName());
+            addmarker(latLng3,address3.getFeatureName());
+        }
+
+    }
+    private void addmarker(LatLng latLng,String title){
+        MarkerOptions options = new MarkerOptions().position(latLng).title(title);
+        mMap.addMarker(options);
+    }
     private  void init(){
         Log.d(TAG,"init: initializing");
 
@@ -172,6 +220,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }catch (SecurityException e){
             Log.d(TAG,"getDeviceLocation: SecurityException"+e.getMessage());
         }
+        landmarks();
     }
     private void moveCamera(LatLng latLng,float zoom,String title){
         Log.d(TAG,"moveCamera:moving camera to lat:"+latLng.latitude+", lng:"+latLng.longitude);
@@ -229,7 +278,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        MapsInitializer.initialize(getActivity());
         if(mLoactionPermissionGranted){
             getDeviceLocation();
         }

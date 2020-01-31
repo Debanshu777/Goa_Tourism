@@ -2,6 +2,8 @@ package com.example.goatourism.Fragments;
 
 
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,9 @@ import androidx.fragment.app.Fragment;
 import com.camerakit.CameraKitView;
 import com.example.goatourism.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 
 public class CameraFragment extends Fragment {
@@ -33,6 +38,20 @@ public class CameraFragment extends Fragment {
         buttonExpandCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cameraKitView.captureImage(new CameraKitView.ImageCallback() {
+                    @Override
+                    public void onImage(CameraKitView cameraKitView, final byte[] photo) {
+                        File savedPhoto = new File(Environment.getExternalStorageDirectory(), "photo.jpg");
+                        try {
+                            FileOutputStream outputStream = new FileOutputStream(savedPhoto.getPath());
+                            outputStream.write(photo);
+                            outputStream.close();
+                        } catch (java.io.IOException e) {
+                            e.printStackTrace();
+                            Log.e("CKDemo", "Exception in photo callback");
+                        }
+                    }
+                });
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });

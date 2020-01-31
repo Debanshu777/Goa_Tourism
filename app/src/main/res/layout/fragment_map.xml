@@ -68,11 +68,20 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp" />
         </RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:id="@+id/fab3"
+            android:visibility="gone"
+            android:src="@drawable/down_arrow"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@id/bottom_sheet"
+            app:layout_anchorGravity="right"
+            android:layout_marginRight="10dp"/>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="400dp"
             android:background="@drawable/design"
             app:behavior_hideable="true"
             app:behavior_peekHeight="10dp"

@@ -45,6 +45,6 @@ private boolean sessionLoggedIn=false;
                 else
                     startActivity(new Intent(SplashScreen.this,Login.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             }
-        },6000);
+        },5000);
     }
 }

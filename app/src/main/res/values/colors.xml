@@ -3,4 +3,8 @@
     <color name="colorPrimary">#1eb4fa</color>
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorTransparent">#00ffffff</color>
+    <color name="colorGradientStart">#2196F3</color>
+    <color name="colorGradientCenter">#BBF1FF</color>
+    <color name="colorGradientEnd">#00BCD4</color>
 </resources>
